@@ -1,0 +1,42 @@
+img {
+    position: relative;
+    left: 0;
+    top: 0;
+}
+.food {
+	position:absolute;
+	background-color:red;
+}
+.visited {
+	position:absolute;
+	background-color:blue;
+	z-index:1;
+}
+
+#scoreBoard {
+	position:absolute;
+	left:0;
+	top:0;
+	background-color:yellow;
+	z-index:4;
+}
+.gameOver {
+	position:absolute;
+	left:10;
+	top:10;
+	background-color:yellow;
+	z-index:3;
+	visibility:hidden;
+}
+#console {
+	position:absolute;
+	left:0;
+	top:0;
+	background-color:pink;
+}
+#mario {
+	position:absolute;
+	z-index:2;
+}
+
+
