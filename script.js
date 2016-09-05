@@ -45,7 +45,7 @@ $(document).ready(function() {
 	$('div#mario').css({'left':juego.currentPosition().x*headWidth,'top':juego.currentPosition().y*headHeight});
 	//paint the scoreboard and display its initial value
 	$('div#scoreBoard').css({'left':docWidth-200,'top':5});
-	$('div#scoreBoard').html("Score: "+ juego.getScore() + " Lives: "+ juego.getLives() + "Food left: " + juego.getFood());
+	$('div#scoreBoard').html("Score: "+ juego.getScore() + " Lives: "+ juego.getLives() + " Food left: " + juego.getFood());
 	
 	//now we process key event: up, down, left, right
 	$(document).keydown(function(key) {
@@ -88,7 +88,7 @@ $(document).ready(function() {
 		$visited.appendTo('body');
 		
 		//we display updated score and lives
-		$('div#scoreBoard').html("Score: "+ juego.getScore() + " Lives: "+ juego.getLives() + "Food left: " + juego.getFood());
+		$('div#scoreBoard').html("Score: "+ juego.getScore() + " Lives: "+ juego.getLives() + " Food left: " + juego.getFood());
 		
 		// trigger event of GAME OVER!!
 		if(juego.getLives()<0) {
