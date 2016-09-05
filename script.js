@@ -25,21 +25,27 @@ $(document).ready(function() {
 			}
 		}
 	}
-	//boardToConsole(juego); // helper function that displays the entire board on the log console 
+	//juego.boardToConsole(); // function that displays the entire board on the log console. For debugging purposes.
 
-	// Declare a business logic event and handler so that we can process GAME OVER!	
-	$(document).on( "gameOverEvent", function( event ) {
-		$gameOver=$('div.gameOver');
+	// Declare a business logic events and handlers so that we can process GAME OVER!	
+	$(document).on( "gameOverDeathEvent", function( event ) {
+		$gameOver=$('div.gameOverDeath');
 		$gameOver.css({'width':docWidth-20,'height':docHeight-20});
 		$gameOver.css("visibility","visible");
 	});
-	// end GAME OVER event and handler definition
+	$(document).on( "gameOverWinEvent", function( event ) {
+		$gameOver=$('div.gameOverWin');
+		$gameOver.css({'width':docWidth-20,'height':docHeight-20});
+		$gameOver.css("visibility","visible");
+	});
+	
+	// end GAME OVER events and handlers definition
 
  	//paint the head of the snake... better known as mario
 	$('div#mario').css({'left':juego.currentPosition().x*headWidth,'top':juego.currentPosition().y*headHeight});
 	//paint the scoreboard and display its initial value
-	$('div#scoreBoard').css({'left':docWidth-150,'top':5});
-	$('div#scoreBoard').html("Score: "+ juego.getScore() + " Lives: "+ juego.getLives());
+	$('div#scoreBoard').css({'left':docWidth-200,'top':5});
+	$('div#scoreBoard').html("Score: "+ juego.getScore() + " Lives: "+ juego.getLives() + "Food left: " + juego.getFood());
 	
 	//now we process key event: up, down, left, right
 	$(document).keydown(function(key) {
@@ -82,11 +88,14 @@ $(document).ready(function() {
 		$visited.appendTo('body');
 		
 		//we display updated score and lives
-		$('div#scoreBoard').html("Score: "+ juego.getScore() + " Lives: "+ juego.getLives());
+		$('div#scoreBoard').html("Score: "+ juego.getScore() + " Lives: "+ juego.getLives() + "Food left: " + juego.getFood());
 		
 		// trigger event of GAME OVER!!
 		if(juego.getLives()<0) {
-			$(document).trigger( "gameOverEvent", [ "Custom", "Event" ] );
+			$(document).trigger( "gameOverDeathEvent", [ "Custom", "Event" ] );
+		}
+		if(juego.getFood()<=0) {
+			$(document).trigger( "gameOverWinEvent", [ "Custom", "Event" ] );
 		}
 		// end GAME OVER
 	});

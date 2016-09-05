@@ -20,11 +20,19 @@ img {
 	background-color:yellow;
 	z-index:4;
 }
-.gameOver {
+.gameOverDeath {
 	position:absolute;
 	left:10;
 	top:10;
-	background-color:yellow;
+	background-color:red;
+	z-index:3;
+	visibility:hidden;
+}
+.gameOverWin {
+	position:absolute;
+	left:10;
+	top:10;
+	background-color:green;
 	z-index:3;
 	visibility:hidden;
 }

@@ -14,6 +14,7 @@ function Game(){
 	};
 	this.score=0;
 	this.lives=10;
+	this.food=0;
 	//methods
 	this.addFood=function(){
 		//adds random amount of food bites to the board.
@@ -24,6 +25,7 @@ function Game(){
 		for (var i=0;i<countFood;i++){
 			randomX=Math.floor(Math.random()*this.width);
 			randomY=Math.floor(Math.random()*this.height);
+			this.food++;
 			this.board[randomY][randomX]=2;
 		}
 	};
@@ -35,6 +37,7 @@ function Game(){
 		}
 		else if (this.gotFood()){
 			this.score++;
+			this.food--;
 		}
 		this.markAsVisited();
 	};
@@ -107,6 +110,11 @@ function Game(){
 		//tells us how many lives we have left
 		return(this.lives);
 	};
+	
+	this.getFood=function(){
+		//tells us how much food left on the board
+		return(this.food);
+	};
 
 	this.initializeBoard=function(){
 		//sets the board to all zeros
@@ -120,56 +128,31 @@ function Game(){
 		return(tabla);
 	}
 
+	this.boardToConsole=function(){
+		var stri="";
+		for (var i=0;i<this.height;i++){
+			for (var j=0;j<this.width;j++){
+				stri+=this.board[i][j]+" ";
+			}
+			stri+="\n";
+		}
+		console.log(stri);
+	}
+
+	this.gameStatusToConsole=function(){
+		console.log("score: "+ this.score + ". lives: " +this.lives +". food left:" + this.food);
+	}
+	
 	this.board=this.initializeBoard(); // we set the board to all zeros
 	this.addFood(); //we add cakes to the board
 }	
 
-// helper functions
-
-
-function boardToConsole(game){
-	var stri="";
-	for (var i=0;i<game.height;i++){
-		for (var j=0;j<game.width;j++){
-			stri+=game.board[i][j]+" ";
-		}
-		stri+="\n";
-	}
-	console.log(stri);
+//this is needed so that we can run Unit Testing with node.js and mocha / latte.
+//explicit export of module needed there.
+//when running on browser, order of appearance on html <script> makes export not needed.
+try {
+	module.exports = Game;
 }
-
-function gameStatusToConsole(){
-	console.log("score: "+ juego.score + ". lives: " +juego.lives);
+catch(err) {
+	console.log("Executing on browser therefore no export needed. The export is needed to run on node.js for UT purposes");
 }
-//using the game for testing purposes
-/* 
-var juego=new Game(30,30);
-juego.addFood();
-
-
-console.log("initial position: ("+ juego.currentPosition().x + ", " +juego.currentPosition().y +")");
-//here we simulate a game of 50 moves or until game over
-var movi=0;
-for (var i=0;i<50;i++){
-	movi=Math.floor(Math.random()*4);
-	switch(movi){
-		case(0):
-			juego.goUp();
-			break;
-		case(1):
-			juego.goDown();
-			break;
-		case(2):
-			juego.goLeft();
-			break;
-		case(3):
-			juego.goRight();
-			break;
-		default:
-			juego.goRight();
-	}
-	if (!juego.gameOn()){break;}
-}
-
-boardToConsole(); 
-gameStatusToConsole();*/
